@@ -1,15 +1,39 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextStyle } from 'react-native';
+import React, { useEffect } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 
-const ScreenShotScreen = () => (
-    <View style={styles.viewScreen}>
-        <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.buttonWrapper} onPress={() => console.log('Camera pressed')}>
-                <Text style={styles.buttonText}>가능</Text>
-            </TouchableOpacity>
+import { View, Text, StyleSheet, TouchableOpacity, TextStyle } from 'react-native';
+import { NativeModules } from 'react-native';
+
+const { ScreenSecurity } = NativeModules;
+
+// ScreenSecurity.enableFlagSecure(); // 실시간 ON
+// ScreenSecurity.disableFlagSecure(); // 실시간 OFF
+
+const ScreenShotScreen = () => {
+    useFocusEffect(
+        React.useCallback(() => {
+            // 화면 진입 시
+            ScreenSecurity.enableFlagSecure();
+            return () => {
+                // 화면 벗어날 때
+                ScreenSecurity.disableFlagSecure();
+            };
+        }, [])
+    );
+
+    return (
+        <View style={styles.viewScreen}>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                    style={styles.buttonWrapper}
+                    onPress={() => console.log('button clicked')}
+                >
+                    <Text style={styles.buttonText}>가능</Text>
+                </TouchableOpacity>
+            </View>
         </View>
-    </View>
-);
+    );
+};
 
 const styles = StyleSheet.create({
     viewScreen: {
