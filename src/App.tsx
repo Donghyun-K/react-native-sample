@@ -2,6 +2,9 @@ import React from 'react';
 import { Button, View, Text, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ScreenshotScreen from './screens/ScreenshotScreen';
+import CameraGalleryScreen from './screens/CameraGalleryScreen';
+import LocalizationScreen from './screens/LocalizationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -10,52 +13,34 @@ const HomeScreen = ({ navigation }: any) => {
         <View style={styles.container}>
             <View style={styles.buttonWrapper}>
                 <Button
-                    title="Go to View A"
-                    onPress={() => navigation.navigate('ViewA')}
+                    title="스크린샷"
+                    onPress={() => navigation.navigate('Screenshot')}
                 />
             </View>
             <View style={styles.buttonWrapper}>
                 <Button
-                    title="Go to View B"
-                    onPress={() => navigation.navigate('ViewB')}
+                    title="카메라/갤러리"
+                    onPress={() => navigation.navigate('CameraGallery')}
                 />
             </View>
             <View style={styles.buttonWrapper}>
                 <Button
-                    title="Go to View C"
-                    onPress={() => navigation.navigate('ViewC')}
+                    title="다국어"
+                    onPress={() => navigation.navigate('Localization')}
                 />
             </View>
         </View>
     );
 };
 
-const ViewA = () => (
-    <View style={styles.viewScreen}>
-        <Text style={styles.text}>This is View A</Text>
-    </View>
-);
-
-const ViewB = () => (
-    <View style={styles.viewScreen}>
-        <Text style={styles.text}>This is View B</Text>
-    </View>
-);
-
-const ViewC = () => (
-    <View style={styles.viewScreen}>
-        <Text style={styles.text}>This is View C</Text>
-    </View>
-);
-
 export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Home">
                 <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="ViewA" component={ViewA} />
-                <Stack.Screen name="ViewB" component={ViewB} />
-                <Stack.Screen name="ViewC" component={ViewC} />
+                <Stack.Screen name="Screenshot" component={ScreenshotScreen} />
+                <Stack.Screen name="CameraGallery" component={CameraGalleryScreen} />
+                <Stack.Screen name="Localization" component={LocalizationScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
@@ -64,8 +49,9 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
+        justifyContent: 'flex-start', // 위에서 아래로 정렬
+        alignItems: 'stretch', // 버튼이 부모의 너비를 채우도록 설정
+        paddingVertical: 20, // 위아래 여백 추가
     },
     buttonWrapper: {
         borderWidth: 1,
@@ -73,7 +59,7 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         overflow: 'hidden',
         marginVertical: 6,
-        width: 200,
+        marginHorizontal: 20, // 좌우 여백 추가
     },
     viewScreen: {
         flex: 1,
