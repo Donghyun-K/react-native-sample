@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 
 import { View, Text, StyleSheet, TouchableOpacity, TextStyle } from 'react-native';
-import { NativeModules } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
 
 const { ScreenSecurity } = NativeModules;
 
@@ -12,12 +12,15 @@ const { ScreenSecurity } = NativeModules;
 const ScreenShotScreen = () => {
     useFocusEffect(
         React.useCallback(() => {
-            // 화면 진입 시
-            ScreenSecurity.enableFlagSecure();
-            return () => {
-                // 화면 벗어날 때
-                ScreenSecurity.disableFlagSecure();
-            };
+            if (Platform.OS === 'ios') {
+            } else if (Platform.OS === 'android') {
+                // 화면 진입 시
+                ScreenSecurity.enableFlagSecure();
+                return () => {
+                    // 화면 벗어날 때
+                    ScreenSecurity.disableFlagSecure();
+                };
+            }
         }, [])
     );
 
