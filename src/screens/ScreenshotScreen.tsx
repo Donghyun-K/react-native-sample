@@ -26,14 +26,7 @@ const ScreenShotScreen = () => {
 
     return (
         <View style={styles.viewScreen}>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                    style={styles.buttonWrapper}
-                    onPress={() => console.log('button clicked')}
-                >
-                    <Text style={styles.buttonText}>가능</Text>
-                </TouchableOpacity>
-            </View>
+            <Text style={styles.text}>스크린샷 불가능한 화면</Text>
         </View>
     );
 };
@@ -46,7 +39,7 @@ const styles = StyleSheet.create({
         paddingTop: 50, // 상단 여백 추가
     },
     text: {
-        fontSize: 24,
+        fontSize: 18,
         marginBottom: 20,
     },
     buttonContainer: {
