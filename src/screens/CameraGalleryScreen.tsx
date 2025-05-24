@@ -4,10 +4,16 @@ import { View, Text, StyleSheet, TouchableOpacity, TextStyle } from 'react-nativ
 const CameraGalleryScreen = () => (
     <View style={styles.viewScreen}>
         <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.buttonWrapper} onPress={() => console.log('Camera pressed')}>
+            <TouchableOpacity
+                style={styles.buttonWrapper}
+                onPress={() => console.log('Camera pressed')}
+            >
                 <Text style={styles.buttonText}>Camera</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonWrapper} onPress={() => console.log('Gallery pressed')}>
+            <TouchableOpacity
+                style={styles.buttonWrapper}
+                onPress={() => console.log('Gallery pressed')}
+            >
                 <Text style={styles.buttonText}>Gallery</Text>
             </TouchableOpacity>
         </View>
