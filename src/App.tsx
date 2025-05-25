@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ScreenshotScreen from './screens/ScreenshotScreen';
 import CameraGalleryScreen from './screens/CameraGalleryScreen';
 import LocalizationScreen from './screens/LocalizationScreen';
+import './i18n';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,10 +13,7 @@ const HomeScreen = ({ navigation }: any) => {
     return (
         <View style={styles.container}>
             <View style={styles.buttonWrapper}>
-                <Button
-                    title="스크린샷"
-                    onPress={() => navigation.navigate('Screenshot')}
-                />
+                <Button title="스크린샷" onPress={() => navigation.navigate('Screenshot')} />
             </View>
             <View style={styles.buttonWrapper}>
                 <Button
@@ -24,10 +22,7 @@ const HomeScreen = ({ navigation }: any) => {
                 />
             </View>
             <View style={styles.buttonWrapper}>
-                <Button
-                    title="다국어"
-                    onPress={() => navigation.navigate('Localization')}
-                />
+                <Button title="다국어" onPress={() => navigation.navigate('Localization')} />
             </View>
         </View>
     );
