@@ -1,59 +1,54 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextStyle } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
-const LocalizationScreen = () => (
-    <View style={styles.viewScreen}>
-        <View style={styles.buttonContainer}>
-            <TouchableOpacity
-                style={styles.buttonWrapper}
-                onPress={() => console.log('Camera pressed')}
-            >
-                <Text style={styles.buttonText}>영어</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.buttonWrapper}
-                onPress={() => console.log('Gallery pressed')}
-            >
-                <Text style={styles.buttonText}>한국어</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.buttonWrapper}
-                onPress={() => console.log('Gallery pressed')}
-            >
-                <Text style={styles.buttonText}>일본어</Text>
-            </TouchableOpacity>
+const LocalizationScreen = () => {
+    const { t, i18n } = useTranslation();
+
+    const changeLanguage = (lang: string) => {
+        i18n.changeLanguage(lang);
+    };
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>{t('language_screen_title')}</Text>
+            <Text style={styles.current}>
+                {t('current_language')}: {i18n.language}
+            </Text>
+
+            <View style={styles.buttonGroup}>
+                <Button title="🇰🇷 한국어" onPress={() => changeLanguage('ko')} />
+                <View style={styles.spacer} />
+                <Button title="🇺🇸 English" onPress={() => changeLanguage('en')} />
+                <View style={styles.spacer} />
+                <Button title="🇯🇵 日本語" onPress={() => changeLanguage('jp')} />
+            </View>
         </View>
-    </View>
-);
+    );
+};
 
 const styles = StyleSheet.create({
-    viewScreen: {
+    container: {
         flex: 1,
+        padding: 20,
         justifyContent: 'flex-start', // 상단으로 정렬
         alignItems: 'center',
         paddingTop: 50, // 상단 여백 추가
     },
-    text: {
-        fontSize: 24,
+    title: {
+        fontSize: 20,
         marginBottom: 20,
     },
-    buttonContainer: {
-        flexDirection: 'row', // 버튼을 가로로 배치
-        justifyContent: 'space-between',
-    },
-    buttonWrapper: {
-        borderWidth: 1, // 테두리 추가
-        borderColor: '#2196f3',
-        borderRadius: 8,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        marginHorizontal: 10, // 버튼 간격
-        backgroundColor: '#ffffff', // 버튼 배경색
-    },
-    buttonText: {
+    current: {
         fontSize: 16,
-        color: '#2196f3',
-        textAlign: 'center',
+        marginBottom: 30,
+    },
+    buttonGroup: {
+        width: '100%',
+        alignItems: 'center',
+    },
+    spacer: {
+        height: 10,
     },
 });
 
