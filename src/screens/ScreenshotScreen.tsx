@@ -3,6 +3,7 @@ import { useFocusEffect } from '@react-navigation/native';
 
 import { View, Text, StyleSheet, TouchableOpacity, TextStyle } from 'react-native';
 import { NativeModules, Platform } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 const { ScreenSecurity } = NativeModules;
 
@@ -10,6 +11,12 @@ const { ScreenSecurity } = NativeModules;
 // ScreenSecurity.disableFlagSecure(); // 실시간 OFF
 
 const ScreenShotScreen = () => {
+    const { t, i18n } = useTranslation();
+
+    const changeLanguage = (lang: string) => {
+        i18n.changeLanguage(lang);
+    };
+
     useFocusEffect(
         React.useCallback(() => {
             if (Platform.OS === 'ios') {
@@ -26,7 +33,7 @@ const ScreenShotScreen = () => {
 
     return (
         <View style={styles.viewScreen}>
-            <Text style={styles.text}>스크린샷 불가능한 화면</Text>
+            {<Text style={styles.text}>{t('not_allowed_screenshot')}</Text>}
         </View>
     );
 };
