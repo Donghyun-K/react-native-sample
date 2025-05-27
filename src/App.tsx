@@ -6,23 +6,34 @@ import ScreenshotScreen from './screens/ScreenshotScreen';
 import CameraGalleryScreen from './screens/CameraGalleryScreen';
 import LocalizationScreen from './screens/LocalizationScreen';
 import './i18n';
+import { useTranslation } from 'react-i18next';
 
 const Stack = createNativeStackNavigator();
 
 const HomeScreen = ({ navigation }: any) => {
+    const { t, i18n } = useTranslation();
+    const changeLanguage = (lang: string) => {
+        i18n.changeLanguage(lang);
+    };
     return (
         <View style={styles.container}>
             <View style={styles.buttonWrapper}>
-                <Button title="스크린샷" onPress={() => navigation.navigate('Screenshot')} />
+                <Button
+                    title={t('bt_screenshot')}
+                    onPress={() => navigation.navigate('Screenshot')}
+                />
             </View>
             <View style={styles.buttonWrapper}>
                 <Button
-                    title="카메라/갤러리"
+                    title={t('bt_camera_gallery')}
                     onPress={() => navigation.navigate('CameraGallery')}
                 />
             </View>
             <View style={styles.buttonWrapper}>
-                <Button title="다국어" onPress={() => navigation.navigate('Localization')} />
+                <Button
+                    title={t('bt_language')}
+                    onPress={() => navigation.navigate('Localization')}
+                />
             </View>
         </View>
     );

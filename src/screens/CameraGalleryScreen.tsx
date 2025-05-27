@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { useTranslation } from 'react-i18next';
 
 const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
@@ -37,7 +38,10 @@ const requestGalleryPermission = async () => {
 
 const CameraGalleryScreen = () => {
     const [imageUri, setImageUri] = useState<string | null>(null);
-
+    const { t, i18n } = useTranslation();
+    const changeLanguage = (lang: string) => {
+        i18n.changeLanguage(lang);
+    };
     const openCamera = async () => {
         const hasPermission = await requestCameraPermission();
         if (!hasPermission) {
@@ -100,9 +104,9 @@ const CameraGalleryScreen = () => {
 
     return (
         <View style={styles.container}>
-            <Button title="카메라 열기" onPress={openCamera} />
+            <Button title={t('bt_open_camera')} onPress={openCamera} />
             <View style={{ height: 10 }} />
-            <Button title="갤러리 열기" onPress={openGallery} />
+            <Button title={t('bt_open_gallery')} onPress={openGallery} />
             {imageUri && (
                 <>
                     <Text style={styles.uriText}>📎 URI: {imageUri}</Text>
