@@ -14,6 +14,7 @@ const resources = {
             bt_language: 'Language Settings',
             bt_open_camera: 'Open Camera',
             bt_open_gallery: 'Open Gallery',
+            bt_board: 'Board',
         },
     },
     ko: {
@@ -28,6 +29,7 @@ const resources = {
             bt_language: '언어 설정',
             bt_open_camera: '카메라 열기',
             bt_open_gallery: '갤러리 열기',
+            bt_board: '게시판',
         },
     },
     jp: {
@@ -42,6 +44,7 @@ const resources = {
             bt_language: '言語設定',
             bt_open_camera: 'カメラを開く',
             bt_open_gallery: 'ギャラリーを開く',
+            bt_board: '掲示板',
         },
     },
 };
