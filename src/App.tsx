@@ -5,6 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ScreenshotScreen from './screens/ScreenshotScreen';
 import CameraGalleryScreen from './screens/CameraGalleryScreen';
 import LocalizationScreen from './screens/LocalizationScreen';
+import BoardScreen from './screens/BoardScreen';
+import SignupScreen from './screens/SignupScreen';
 import './i18n';
 import { useTranslation } from 'react-i18next';
 
@@ -35,6 +37,9 @@ const HomeScreen = ({ navigation }: any) => {
                     onPress={() => navigation.navigate('Localization')}
                 />
             </View>
+            <View style={styles.buttonWrapper}>
+                <Button title={t('bt_board')} onPress={() => navigation.navigate('Board')} />
+            </View>
         </View>
     );
 };
@@ -47,6 +52,8 @@ export default function App() {
                 <Stack.Screen name="Screenshot" component={ScreenshotScreen} />
                 <Stack.Screen name="CameraGallery" component={CameraGalleryScreen} />
                 <Stack.Screen name="Localization" component={LocalizationScreen} />
+                <Stack.Screen name="Board" component={BoardScreen} />
+                <Stack.Screen name="Signup" component={SignupScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
