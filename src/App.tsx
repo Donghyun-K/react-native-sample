@@ -6,6 +6,7 @@ import ScreenshotScreen from './screens/ScreenshotScreen';
 import CameraGalleryScreen from './screens/CameraGalleryScreen';
 import LocalizationScreen from './screens/LocalizationScreen';
 import BoardScreen from './screens/BoardScreen';
+import SignupScreen from './screens/SignupScreen';
 import './i18n';
 import { useTranslation } from 'react-i18next';
 
@@ -52,6 +53,7 @@ export default function App() {
                 <Stack.Screen name="CameraGallery" component={CameraGalleryScreen} />
                 <Stack.Screen name="Localization" component={LocalizationScreen} />
                 <Stack.Screen name="Board" component={BoardScreen} />
+                <Stack.Screen name="Signup" component={SignupScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
