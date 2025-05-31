@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    StyleSheet,
-    Alert,
-} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-
 
 const SignupScreen = () => {
     const { t } = useTranslation();
@@ -40,18 +32,18 @@ const SignupScreen = () => {
 
             <TextInput
                 style={styles.input}
-                placeholder={t('username')}
-                value={username}
-                onChangeText={setUsername}
+                placeholder={t('email')}
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
                 autoCapitalize="none"
             />
 
             <TextInput
                 style={styles.input}
-                placeholder={t('email')}
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
+                placeholder={t('username')}
+                value={username}
+                onChangeText={setUsername}
                 autoCapitalize="none"
             />
 
@@ -75,10 +67,7 @@ const SignupScreen = () => {
                 <Text style={styles.buttonText}>{t('signup')}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-                style={styles.loginLink}
-                onPress={() => navigation.goBack()}
-            >
+            <TouchableOpacity style={styles.loginLink} onPress={() => navigation.goBack()}>
                 <Text style={styles.loginLinkText}>{t('already_have_account')}</Text>
             </TouchableOpacity>
         </View>
@@ -129,4 +118,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SignupScreen; 
+export default SignupScreen;

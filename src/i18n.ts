@@ -26,6 +26,7 @@ const resources = {
             please_fill_all_fields: 'Please fill in all fields',
             passwords_do_not_match: 'Passwords do not match',
             already_have_account: 'Already have an account?',
+            confirm_password: 'Confirm Password',
         },
     },
     ko: {
@@ -52,6 +53,7 @@ const resources = {
             please_fill_all_fields: '모든 항목을 입력해주세요.',
             passwords_do_not_match: '비밀번호가 일치하지 않습니다.',
             already_have_account: '이미 계정이 있으신가요?',
+            confirm_password: '비밀번호 확인',
         },
     },
     jp: {
@@ -78,6 +80,7 @@ const resources = {
             please_fill_all_fields: 'すべての項目を入力してください。',
             passwords_do_not_match: 'パスワードが一致しません。',
             already_have_account: 'すでにアカウントをお持ちですか？',
+            confirm_password: 'パスワード確認',
         },
     },
 };
