@@ -1,98 +1,28 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import en from './i18n/locales/en';
+import ko from './i18n/locales/ko';
+import jp from './i18n/locales/jp';
 
-const resources = {
-    en: {
-        translation: {
-            hello: 'Hello',
-            welcome: 'Welcome!',
-            language_screen_title: 'Language Settings',
-            current_language: 'Current Language',
-            not_allowed_screenshot: 'Screenshots are not allowed on this screen.',
-            bt_screenshot: 'Screenshot',
-            bt_camera_gallery: 'Camera/Gallery',
-            bt_language: 'Language Settings',
-            bt_open_camera: 'Open Camera',
-            bt_open_gallery: 'Open Gallery',
-            bt_board: 'Board',
-            username: 'Username',
-            password: 'Password',
-            login: 'Login',
-            signup: 'Sign Up',
-            error: 'Error',
-            notice: 'Notice',
-            please_enter_username_password: 'Please enter username and password',
-            login_not_implemented: 'Login functionality is not implemented yet',
-            please_fill_all_fields: 'Please fill in all fields',
-            passwords_do_not_match: 'Passwords do not match',
-            already_have_account: 'Already have an account?',
-            confirm_password: 'Confirm Password',
-        },
+i18n
+  .use(initReactI18next)
+  .init({
+    resources: {
+      en: {
+        translation: en,
+      },
+      ko: {
+        translation: ko,
+      },
+      jp: {
+        translation: jp,
+      },
     },
-    ko: {
-        translation: {
-            hello: '안녕하세요',
-            welcome: '환영합니다!',
-            language_screen_title: '언어 설정',
-            current_language: '현재 언어',
-            not_allowed_screenshot: '이 화면에서는 스크린샷을 찍을 수 없습니다.',
-            bt_screenshot: '스크린샷',
-            bt_camera_gallery: '카메라/갤러리',
-            bt_language: '언어 설정',
-            bt_open_camera: '카메라 열기',
-            bt_open_gallery: '갤러리 열기',
-            bt_board: '게시판',
-            username: '이름',
-            password: '비밀번호',
-            login: '로그인',
-            signup: '회원가입',
-            error: '오류',
-            notice: '알림',
-            please_enter_username_password: '이름과 비밀번호를 입력해주세요.',
-            login_not_implemented: '로그인 기능은 아직 구현되지 않았습니다.',
-            please_fill_all_fields: '모든 항목을 입력해주세요.',
-            passwords_do_not_match: '비밀번호가 일치하지 않습니다.',
-            already_have_account: '이미 계정이 있으신가요?',
-            confirm_password: '비밀번호 확인',
-        },
-    },
-    jp: {
-        translation: {
-            hello: 'こんにちは',
-            welcome: 'ようこそ！',
-            language_screen_title: '言語設定',
-            current_language: '現在の言語',
-            not_allowed_screenshot: 'この画面ではスクリーンショットが許可されていません。',
-            bt_screenshot: 'スクリーンショット',
-            bt_camera_gallery: 'カメラ/ギャラリー',
-            bt_language: '言語設定',
-            bt_open_camera: 'カメラを開く',
-            bt_open_gallery: 'ギャラリーを開く',
-            bt_board: '掲示板',
-            username: 'ユーザー名',
-            password: 'パスワード',
-            login: 'ログイン',
-            signup: '新規登録',
-            error: 'エラー',
-            notice: 'お知らせ',
-            please_enter_username_password: 'ユーザー名とパスワードを入力してください。',
-            login_not_implemented: 'ログイン機能はまだ実装されていません。',
-            please_fill_all_fields: 'すべての項目を入力してください。',
-            passwords_do_not_match: 'パスワードが一致しません。',
-            already_have_account: 'すでにアカウントをお持ちですか？',
-            confirm_password: 'パスワード確認',
-        },
-    },
-};
-
-i18n.use(initReactI18next).init({
-    // compatibilityJSON: 'v3',
-    resources,
-    lng: 'ko', // 초기 언어
+    lng: 'en',
     fallbackLng: 'en',
     interpolation: {
-        escapeValue: false,
+      escapeValue: false,
     },
-});
+  });
 
 export default i18n;

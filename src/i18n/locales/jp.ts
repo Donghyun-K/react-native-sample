@@ -1,0 +1,37 @@
+export default {
+    welcome: 'ようこそ',
+    email: 'メールアドレス',
+    password: 'パスワード',
+    login: 'ログイン',
+    signup: '新規登録',
+    error: 'エラー',
+    success: '成功',
+    please_enter_email_password: 'メールアドレスとパスワードを入力してください',
+    login_success: 'ログイン成功',
+    login_failed: 'ログインに失敗しました。メールアドレスとパスワードを確認してください。',
+    logging_in: 'ログイン中...',
+    logout: 'ログアウト',
+    boards: '掲示板',
+    board_title: 'タイトル',
+    board_description: '説明',
+    board_status: '状態',
+    // Main screen buttons
+    bt_screenshot: 'スクリーンショット',
+    bt_camera_gallery: 'カメラ/ギャラリー',
+    bt_language: '言語設定',
+    bt_board: '掲示板',
+    // Screenshot screen
+    screenshot_title: 'スクリーンショット画面',
+    not_allowed_screenshot: 'この画面ではスクリーンショットが許可されていません。',
+    // Camera Gallery screen
+    camera_gallery_title: 'カメラ/ギャラリー画面',
+    bt_open_camera: 'カメラを開く',
+    bt_open_gallery: 'ギャラリーを開く',
+    // Localization screen
+    language_screen_title: '言語設定',
+    current_language: '現在の言語',
+    select_language: '言語を選択',
+    language_en: '英語',
+    language_ko: '韓国語',
+    language_jp: '日本語',
+}; 

@@ -1,16 +1,64 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Button, View, Text, StyleSheet } from 'react-native';
+import BoardScreen from './screens/BoardScreen';
+import SignupScreen from './screens/SignupScreen';
 import ScreenshotScreen from './screens/ScreenshotScreen';
 import CameraGalleryScreen from './screens/CameraGalleryScreen';
 import LocalizationScreen from './screens/LocalizationScreen';
-import BoardScreen from './screens/BoardScreen';
-import SignupScreen from './screens/SignupScreen';
+import Toast, { BaseToast, ErrorToast, ToastProps } from 'react-native-toast-message';
 import './i18n';
 import { useTranslation } from 'react-i18next';
 
 const Stack = createNativeStackNavigator();
+
+const toastConfig = {
+  success: (props: ToastProps) => (
+    <BaseToast
+      {...props}
+      style={{
+        borderLeftColor: 'green',
+        backgroundColor: 'white',
+        height: 60,
+      }}
+      contentContainerStyle={{
+        paddingHorizontal: 15,
+      }}
+      text1Style={{
+        fontSize: 16,
+        fontWeight: '600',
+        color: 'black',
+      }}
+      text2Style={{
+        fontSize: 14,
+        color: 'black',
+      }}
+    />
+  ),
+  error: (props: ToastProps) => (
+    <ErrorToast
+      {...props}
+      style={{
+        borderLeftColor: 'red',
+        backgroundColor: 'white',
+        height: 60,
+      }}
+      contentContainerStyle={{
+        paddingHorizontal: 15,
+      }}
+      text1Style={{
+        fontSize: 16,
+        fontWeight: '600',
+        color: 'black',
+      }}
+      text2Style={{
+        fontSize: 14,
+        color: 'black',
+      }}
+    />
+  ),
+};
 
 const HomeScreen = ({ navigation }: any) => {
     const { t, i18n } = useTranslation();
@@ -45,26 +93,27 @@ const HomeScreen = ({ navigation }: any) => {
 };
 
 export default function App() {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home">
-                <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="Screenshot" component={ScreenshotScreen} />
-                <Stack.Screen name="CameraGallery" component={CameraGalleryScreen} />
-                <Stack.Screen name="Localization" component={LocalizationScreen} />
-                <Stack.Screen name="Board" component={BoardScreen} />
-                <Stack.Screen name="Signup" component={SignupScreen} />
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Screenshot" component={ScreenshotScreen} />
+        <Stack.Screen name="CameraGallery" component={CameraGalleryScreen} />
+        <Stack.Screen name="Localization" component={LocalizationScreen} />
+        <Stack.Screen name="Board" component={BoardScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
+      </Stack.Navigator>
+      <Toast config={toastConfig} />
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'flex-start', // 위에서 아래로 정렬
-        alignItems: 'stretch', // 버튼이 부모의 너비를 채우도록 설정
-        paddingVertical: 20, // 위아래 여백 추가
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        paddingVertical: 20,
     },
     buttonWrapper: {
         borderWidth: 1,
@@ -72,7 +121,7 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         overflow: 'hidden',
         marginVertical: 6,
-        marginHorizontal: 20, // 좌우 여백 추가
+        marginHorizontal: 20,
     },
     viewScreen: {
         flex: 1,
