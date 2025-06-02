@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+
+const API_URL = 'http://192.168.0.65:3001';
 
 const SignupScreen = () => {
     const { t } = useTranslation();
@@ -10,8 +13,9 @@ const SignupScreen = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [username, setUsername] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const handleSignup = () => {
+    const handleSignup = async () => {
         if (!email || !password || !confirmPassword || !username) {
             Alert.alert(t('error'), t('please_fill_all_fields'));
             return;
@@ -22,8 +26,28 @@ const SignupScreen = () => {
             return;
         }
 
-        // TODO: Implement actual signup logic here
-        console.log('Signup attempt:', { email, username });
+        try {
+            setLoading(true);
+            const response = await axios.post(`${API_URL}/auth/signup`, {
+                email,
+                password,
+                username
+            });
+
+            if (response.status === 201) {
+                Alert.alert(t('success'), t('signup_success'), [
+                    {
+                        text: 'OK',
+                        onPress: () => navigation.goBack()
+                    }
+                ]);
+            }
+        } catch (error) {
+            console.error('Signup error:', error);
+            Alert.alert(t('error'), t('signup_failed'));
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -33,41 +57,61 @@ const SignupScreen = () => {
             <TextInput
                 style={styles.input}
                 placeholder={t('email')}
+                placeholderTextColor="#999"
                 value={email}
                 onChangeText={setEmail}
                 keyboardType="email-address"
                 autoCapitalize="none"
+                editable={!loading}
             />
 
             <TextInput
                 style={styles.input}
                 placeholder={t('username')}
+                placeholderTextColor="#999"
                 value={username}
                 onChangeText={setUsername}
                 autoCapitalize="none"
+                editable={!loading}
             />
 
             <TextInput
                 style={styles.input}
                 placeholder={t('password')}
+                placeholderTextColor="#999"
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
+                editable={!loading}
             />
 
             <TextInput
                 style={styles.input}
                 placeholder={t('confirm_password')}
+                placeholderTextColor="#999"
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
                 secureTextEntry
+                editable={!loading}
             />
 
-            <TouchableOpacity style={styles.button} onPress={handleSignup}>
-                <Text style={styles.buttonText}>{t('signup')}</Text>
+            <TouchableOpacity 
+                style={[styles.button, loading && styles.buttonDisabled]} 
+                onPress={handleSignup}
+                disabled={loading}
+            >
+                {loading ? (
+                    <ActivityIndicator color="#fff" />
+                ) : (
+                    <Text style={styles.buttonText}>{t('signup')}</Text>
+                )}
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.loginLink} onPress={() => navigation.goBack()}>
+            <TouchableOpacity 
+                style={styles.loginLink} 
+                onPress={() => navigation.goBack()}
+                disabled={loading}
+            >
                 <Text style={styles.loginLinkText}>{t('already_have_account')}</Text>
             </TouchableOpacity>
         </View>
@@ -94,6 +138,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         marginBottom: 15,
         fontSize: 16,
+        color: '#000',
     },
     button: {
         backgroundColor: '#2196f3',
@@ -102,6 +147,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 10,
+    },
+    buttonDisabled: {
+        backgroundColor: '#90caf9',
     },
     buttonText: {
         color: '#fff',

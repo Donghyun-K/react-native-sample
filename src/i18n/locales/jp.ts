@@ -34,4 +34,12 @@ export default {
     language_en: '英語',
     language_ko: '韓国語',
     language_jp: '日本語',
+    username: 'ユーザー名',
+    confirm_password: 'パスワード確認',
+    please_fill_all_fields: 'すべての項目を入力してください',
+    passwords_do_not_match: 'パスワードが一致しません',
+    already_have_account: 'すでにアカウントをお持ちですか？ログイン',
+    signup_success: '新規登録成功',
+    signup_failed: '新規登録に失敗しました。もう一度お試しください。',
+    signing_up: '新規登録中...',
 }; 

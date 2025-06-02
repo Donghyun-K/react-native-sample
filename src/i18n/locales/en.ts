@@ -34,5 +34,13 @@ export default {
     language_en: 'English',
     language_ko: 'Korean',
     language_jp: 'Japanese',
+    username: 'Username',
+    confirm_password: 'Confirm Password',
+    please_fill_all_fields: 'Please fill in all fields',
+    passwords_do_not_match: 'Passwords do not match',
+    already_have_account: 'Already have an account? Login',
+    signup_success: 'Signup successful',
+    signup_failed: 'Signup failed. Please try again.',
+    signing_up: 'Signing up...',
     // ... 기존 번역들
 }; 
