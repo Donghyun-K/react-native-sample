@@ -42,4 +42,7 @@ export default {
     signup_success: '회원가입 성공',
     signup_failed: '회원가입 실패. 다시 시도해주세요.',
     signing_up: '회원가입 중...',
+    edit: '수정',
+    delete: '삭제',
+    welcome_user: '{{username}}님, 환영합니다!',
 }; 

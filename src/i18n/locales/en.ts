@@ -42,5 +42,8 @@ export default {
     signup_success: 'Signup successful',
     signup_failed: 'Signup failed. Please try again.',
     signing_up: 'Signing up...',
+    edit: 'Edit',
+    delete: 'Delete',
+    welcome_user: 'Welcome, {{username}}!',
     // ... 기존 번역들
 }; 

@@ -42,4 +42,7 @@ export default {
     signup_success: '新規登録成功',
     signup_failed: '新規登録に失敗しました。もう一度お試しください。',
     signing_up: '新規登録中...',
+    edit: '編集',
+    delete: '削除',
+    welcome_user: '{{username}}さん、ようこそ！',
 }; 

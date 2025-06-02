@@ -18,6 +18,16 @@ interface Board {
     title: string;
     description: string;
     status: string;
+    user: {
+        id: number;
+        username: string;
+    };
+}
+
+interface User {
+    id: number;
+    username: string;
+    email: string;
 }
 
 const API_URL = 'http://192.168.0.65:3001';
@@ -32,6 +42,7 @@ const BoardScreen = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [boards, setBoards] = useState<Board[]>([]);
     const [token, setToken] = useState<string | null>(null);
+    const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
         checkLoginStatus();
@@ -42,7 +53,23 @@ const BoardScreen = () => {
         if (storedToken) {
             setToken(storedToken);
             setIsLoggedIn(true);
-            fetchBoards(storedToken);
+            await fetchUserInfo(storedToken);
+            await fetchBoards(storedToken);
+        }
+    };
+
+    const fetchUserInfo = async (authToken: string) => {
+        try {
+            const response = await axios.get(`${API_URL}/auth/me`, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
+            });
+            setUser(response.data);
+        } catch (error) {
+            console.error('Failed to fetch user info:', error);
+            // 사용자 정보를 가져오는데 실패하면 로그아웃 처리
+            handleLogout();
         }
     };
 
@@ -89,6 +116,7 @@ const BoardScreen = () => {
             await AsyncStorage.setItem('token', accessToken);
             setToken(accessToken);
             setIsLoggedIn(true);
+            await fetchUserInfo(accessToken);
             await fetchBoards(accessToken);
             
         } catch (error: any) {
@@ -115,10 +143,21 @@ const BoardScreen = () => {
         setToken(null);
         setIsLoggedIn(false);
         setBoards([]);
+        setUser(null);
     };
 
     const handleSignUp = () => {
         navigation.navigate('Signup');
+    };
+
+    const handleEditBoard = (board: Board) => {
+        // Implement the logic to edit the board
+        console.log('Editing board:', board);
+    };
+
+    const handleDeleteBoard = (id: number) => {
+        // Implement the logic to delete the board
+        console.log('Deleting board:', id);
     };
 
     const renderBoardItem = ({ item }: { item: Board }) => (
@@ -126,6 +165,23 @@ const BoardScreen = () => {
             <Text style={styles.boardTitle}>{item.title}</Text>
             <Text style={styles.boardDescription}>{item.description}</Text>
             <Text style={styles.boardStatus}>Status: {item.status}</Text>
+            <Text style={styles.boardAuthor}>Author: {item.user.username}</Text>
+            {item.user.id === user?.id && (
+                <View style={styles.boardActions}>
+                    <TouchableOpacity 
+                        style={[styles.actionButton, styles.editButton]}
+                        onPress={() => handleEditBoard(item)}
+                    >
+                        <Text style={styles.actionButtonText}>{t('edit')}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                        style={[styles.actionButton, styles.deleteButton]}
+                        onPress={() => handleDeleteBoard(item.id)}
+                    >
+                        <Text style={styles.actionButtonText}>{t('delete')}</Text>
+                    </TouchableOpacity>
+                </View>
+            )}
         </View>
     );
 
@@ -133,8 +189,11 @@ const BoardScreen = () => {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.title}>Boards</Text>
-                    <Button title="Logout" onPress={handleLogout} />
+                    <View style={styles.headerLeft}>
+                        <Text style={styles.title}>{t('boards')}</Text>
+                        <Text style={styles.userInfo}>{t('welcome_user', { username: user?.username })}</Text>
+                    </View>
+                    <Button title={t('logout')} onPress={handleLogout} />
                 </View>
                 <FlatList
                     data={boards}
@@ -167,12 +226,11 @@ const BoardScreen = () => {
                 placeholderTextColor="#666"
             />
             <View style={styles.buttonContainer}>
-                <Button 
-                    title={isLoading ? t('logging_in') : t('login')} 
+                <Button
+                    title={isLoading ? t('loading') : t('login')}
                     onPress={handleLogin}
                     disabled={isLoading}
                 />
-                <View style={styles.buttonSpacer} />
                 <Button title={t('signup')} onPress={handleSignUp} />
             </View>
         </View>
@@ -182,56 +240,51 @@ const BoardScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        paddingTop: 80,
+        padding: 20,
+        backgroundColor: '#fff',
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 20,
+        textAlign: 'center',
+    },
+    input: {
+        height: 50,
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 8,
+        marginBottom: 15,
+        paddingHorizontal: 15,
+        backgroundColor: '#fff',
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginTop: 20,
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '100%',
-        paddingHorizontal: 20,
         marginBottom: 20,
     },
-    title: {
-        fontSize: 24,
-        marginBottom: 24,
+    headerLeft: {
+        flex: 1,
     },
-    input: {
-        width: 240,
-        height: 40,
-        borderColor: '#ccc',
-        borderWidth: 1,
-        borderRadius: 4,
-        marginBottom: 12,
-        paddingHorizontal: 10,
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    buttonSpacer: {
-        width: 16,
+    userInfo: {
+        fontSize: 16,
+        color: '#666',
+        marginTop: 5,
     },
     boardList: {
-        width: '100%',
-        paddingHorizontal: 20,
+        flex: 1,
     },
     boardItem: {
-        backgroundColor: 'white',
+        backgroundColor: '#f8f9fa',
         padding: 15,
         borderRadius: 8,
         marginBottom: 10,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
     },
     boardTitle: {
         fontSize: 18,
@@ -245,7 +298,34 @@ const styles = StyleSheet.create({
     },
     boardStatus: {
         fontSize: 12,
-        color: '#999',
+        color: '#888',
+        marginBottom: 5,
+    },
+    boardAuthor: {
+        fontSize: 12,
+        color: '#888',
+        marginBottom: 5,
+    },
+    boardActions: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        marginTop: 10,
+    },
+    actionButton: {
+        paddingHorizontal: 15,
+        paddingVertical: 8,
+        borderRadius: 5,
+        marginLeft: 10,
+    },
+    editButton: {
+        backgroundColor: '#007bff',
+    },
+    deleteButton: {
+        backgroundColor: '#dc3545',
+    },
+    actionButtonText: {
+        color: '#fff',
+        fontSize: 12,
     },
 });
 
